@@ -19,8 +19,10 @@
     7. BMI, Wt, Alb, BUN, Cr 등의 값이 자나치게 크거나 작은 경우 잘못 입력된 값이라고 간주하고 제거하거나 재입력
     8. volatile과 TIVA의 케이스가 잘못 분류된 경우 변경
     9. 수술명 별 중증도를 점수화하여 수술명 변경
+ 
  <br>
- - TIVA (VR)
+ 
+ - TIVA (VR)  
     1. EMR과 겹치는 Case 추출
     2. PROPOFOL, REMIFENTANIL, AGENT 변수만 사용
     3. AGENT 관련 결측치는 모두 0으로 처리 후, AGENT_ET 변수는 max 값이 1미만인 경우 모두 0으로 처리 
