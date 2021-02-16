@@ -38,6 +38,7 @@
     5. HR 결측치 처리
 
 ## Feature Extraction
+- TIVA, volatile
 
 ## Modeling
 
