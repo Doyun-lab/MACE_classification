@@ -30,7 +30,12 @@
     
  <br>
  
- - volatile
+- volatile (VR)
+    1. 파일이 모두 결측치로 이루어진 경우 제외
+    2. AGENT 변수가 기록이 안된 경우 제외
+    3. 필요한 변수 추출 (PROPOFOL 제외)
+    4. BIS, TV, RR의 이상치나 결측치를 마취기록지에서 대체
+    5. HR 결측치 처리
 
 ## Feature Extraction
 
