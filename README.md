@@ -41,5 +41,5 @@
 - TIVA, volatile
 
 ## Modeling
-
+- 결과 비교하기 (MACE = TRUE, VR 빼고, etc .)
 ## Conclusion
