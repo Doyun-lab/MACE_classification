@@ -39,6 +39,10 @@
 
 ## Feature Extraction
 - TIVA, volatile
+    1. 통계 특징 추출
+    2. 변화 특징 추출
+    3. 파고율 추출 
+    4. 주파수 특징 추출
 
 ## Modeling
 - 결과 비교하기 (MACE = TRUE, VR 빼고, etc .)
