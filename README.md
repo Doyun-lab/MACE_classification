@@ -45,5 +45,9 @@
     4. 주파수 특징 추출
 
 ## Modeling
-- 결과 비교하기 (MACE = TRUE, VR 빼고, etc .)
+- One-class SVM
+- Random Forest
+- XGBoost
+- DNN
+
 ## Conclusion
