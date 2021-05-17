@@ -7,8 +7,13 @@ library(dummies)
 
 setwd("/Users/doyun/Downloads/")
 
-bp_tiva = read.csv("mace_data/TIVA_record_expBP.csv", fileEncoding = "euc-kr")
-record_tiva = read.csv("mace_data/TIVA_record_onlyBP.csv", fileEncoding = "euc-kr")
+emr_tiva = readRDS("mace_data/emr_TIVA_0517.rds")
+bp_tiva = read.csv("mace_data/TIVA_record_expBP.csv", fileEncoding = "euc-kr") %>% select(-X)
+record_tiva = read.csv("mace_data/TIVA_record_onlyBP.csv", fileEncoding = "euc-kr") %>% select(-X)
+
+emr_vol = readRDS("mace_data/emr_vol_0517.rds")
+bp_vol = read.csv("mace_data/vol_record_onlyBP.csv", fileEncoding = "euc-kr") %>% select(-X)
+record_vol = read.csv("mace_data/vol_record_expBP.csv", fileEncoding = "euc-kr") %>% select(-X)
 
 xgb_fit = function(input_data){
   
@@ -49,39 +54,54 @@ xgb_fit = function(input_data){
 }
 
 confusion_matrix = function(result_list){
-  TP <- c()
-  FN <- c()
-  FP <- c()
-  TN <- c()
+  accuracy <- c()
+  precision <- c()
+  recall <- c()
+  accuracy_normal <- c()
+  precision_normal <- c()
+  recall_normal <- c()
   for(mat in result_list){
-    TP <- c(TP, mat[1])
-    FN <- c(FN, mat[2])
-    FP <- c(FP, mat[3])
-    TN <- c(TN, mat[4])
+    TP <- mat[1]
+    FN <- mat[2]
+    FP <- mat[3]
+    TN <- mat[4]
+    
+    accuracy <- c(accuracy, (TP+TN)/(TP+FP+FN+TN))
+    precision <- c(precision, TP/(TP+FP))
+    recall <- c(recall, TP/(TP+FN))
+    
+    accuracy_normal <- c(accuracy_normal, (TP+TN)/(TP+FP+FN+TN))
+    precision_normal <- c(precision_normal, TN/(TN+FN))
+    recall_normal <- c(recall_normal, TN/(TN+FP))
   }
   
-  TP_sum <- sum(TP)
-  FN_sum <- sum(FN)
-  FP_sum <- sum(FP)
-  TN_sum <- sum(TN)
+  acc_mean <- mean(accuracy)
+  pre_mean <- mean(precision)
+  rec_mean <- mean(recall)
   
-  accuracy <- (TP_sum+TN_sum)/(TP_sum+FP_sum+FN_sum+TN_sum)
-  precision <- TP_sum/(TP_sum+FP_sum)
-  recall <- TP_sum/(TP_sum+FN_sum)
+  acc_mean_normal <- mean(accuracy_normal)
+  pre_mean_normal <- mean(precision_normal)
+  rec_mean_normal <- mean(recall_normal)
   
-  accuracy_normal <- (TP_sum+TN_sum)/(TP_sum+FP_sum+FN_sum+TN_sum)
-  precision_normal <- TN_sum/(TN_sum+FN_sum)
-  recall_normal <- TN_sum/(TN_sum+FP_sum)
-  
-  result <- data.frame(mace = c(accuracy, precision, recall),
-                       normal = c(accuracy_normal, precision_normal, recall_normal))
+  result <- data.frame(mace = c(acc_mean, pre_mean, rec_mean),
+                       normal = c(acc_mean_normal, pre_mean_normal, rec_mean_normal))
   
   rownames(result) <- c("accuracy", "precision", "recall")
   return(result)
 }
 
+tiva_emr_xgb <- xgb_fit(emr_tiva)
 tiva_bp_xgb <- xgb_fit(bp_tiva)
 tiva_record_xgb <- xgb_fit(record_tiva)
 
+vol_emr_xgb <- xgb_fit(emr_vol)
+vol_bp_xgb <- xgb_fit(bp_vol)
+vol_record_xgb <- xgb_fit(record_vol)
+
+confusion_matrix(tiva_emr_xgb)  
 confusion_matrix(tiva_bp_xgb)
 confusion_matrix(tiva_record_xgb)
+
+confusion_matrix(vol_emr_xgb)  
+confusion_matrix(vol_bp_xgb)
+confusion_matrix(vol_record_xgb)
