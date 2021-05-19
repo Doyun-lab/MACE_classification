@@ -47,7 +47,7 @@
 ## Modeling
 - One-class SVM
 - Random Forest
-- XGBoost
-- DNN
+- XGBoost **
+- DNN 
 
 ## Conclusion
