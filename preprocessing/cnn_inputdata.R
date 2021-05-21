@@ -30,14 +30,79 @@ vol_sum <- record_vol %>%
 cnn_tiva <- subset(record_tiva, record_tiva$item == "SBP" | record_tiva$item == "DBP" | record_tiva$item == "MBP" |
                      record_tiva$item == "HR" | record_tiva$item == "SPO2")
 
-temp <- subset(cnn_tiva, cnn_tiva$Case_ID == "01_180906_1025")
-temp2 <- temp[,2:3]
+tiva_case <- unique(cnn_tiva$Case_ID)
 
-temp_SBP <- subset(temp2, temp2$item == "SBP")
-temp_DBP <- subset(temp2, temp2$item == "DBP")
-temp_MBP <- subset(temp2, temp2$item == "MBP")
-temp_HR <- subset(temp2, temp2$item == "HR")
-temp_SPO2 <- subset(temp2, temp2$item == "SPO2")
+cnn_tiva_result <- list()
+num <- 1
+for(case in tiva_case){
+  temp <- subset(cnn_tiva, cnn_tiva$Case_ID == case)
+  
+  temp2 <- temp[,2:3]
+  
+  temp_SBP <- subset(temp2, temp2$item == "SBP")
+  temp_DBP <- subset(temp2, temp2$item == "DBP")
+  temp_MBP <- subset(temp2, temp2$item == "MBP")
+  temp_HR <- subset(temp2, temp2$item == "HR")
+  temp_SPO2 <- subset(temp2, temp2$item == "SPO2")
+  
+  if (nrow(temp_SBP) >= 30){
+    temp_SBP <- temp_SBP[1:30,]
+  } else {
+    while(nrow(temp_SBP) < 30){
+      zero_SBP <- data.frame("SBP", 0)
+      colnames(zero_SBP) <- c("item", "value1")
+      temp_SBP <- rbind(temp_SBP, zero_SBP)
+    }
+  }
+  
+  if (nrow(temp_DBP) >= 30){
+    temp_DBP <- temp_DBP[1:30,]
+  } else {
+    while(nrow(temp_DBP) < 30){
+      zero_DBP <- data.frame("DBP", 0)
+      colnames(zero_DBP) <- c("item", "value1")
+      temp_DBP <- rbind(temp_DBP, zero_DBP)
+    }
+  }
+  
+  if (nrow(temp_MBP) >= 30){
+    temp_MBP <- temp_MBP[1:30,]
+  } else {
+    while(nrow(temp_MBP) < 30){
+      zero_MBP <- data.frame("MBP", 0)
+      colnames(zero_MBP) <- c("item", "value1")
+      temp_MBP <- rbind(temp_MBP, zero_MBP)
+    }
+  }
+  
+  if (nrow(temp_HR) >= 30){
+    temp_HR <- temp_HR[1:30,]
+  } else {
+    while(nrow(temp_HR) < 30){
+      zero_HR <- data.frame("HR", 0)
+      colnames(zero_HR) <- c("item", "value1")
+      temp_HR <- rbind(temp_HR, zero_HR)
+    }
+  }
+  
+  if (nrow(temp_SPO2) >= 30){
+    temp_SPO2 <- temp_SPO2[1:30,]
+  } else {
+    while(nrow(temp_SPO2) < 30){
+      zero_SPO2 <- data.frame("SPO2", 0)
+      colnames(zero_SPO2) <- c("item", "value1")
+      temp_SPO2 <- rbind(temp_SPO2, zero_SPO2)
+    }
+  }
+  
+  temp3 <- data.frame(SBP = c(temp_SBP$value1), DBP = c(temp_DBP$value1), MBP = c(temp_MBP$value1), 
+                      HR = c(temp_HR$value1), SPO2 = c(temp_SPO2$value1))
+  
+  temp3$Case_ID <- case
+  
+  cnn_tiva_result[[num]] <- temp3
+  num <- num + 1
+}
 
-data.frame(SBP = c(temp_SBP$value1), DBP = c(temp_DBP$value1), MBP = c(temp_MBP$value1),
-           HR = c(temp_HR$value1), SPO2 = c(temp_SPO2$value1))
+
+nrow(temp_SBP)
