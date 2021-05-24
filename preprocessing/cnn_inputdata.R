@@ -103,6 +103,28 @@ for(case in tiva_case){
   cnn_tiva_result[[num]] <- temp3
   num <- num + 1
 }
+cnn_tiva_result
 
+emr_tiva = readRDS("emr_TIVA_0205_op_revise.rds")
+emr_tiva <- data.frame(subset(emr_tiva, emr_tiva$Case_ID %in% unique(cnn_tiva$Case_ID)))
 
-nrow(temp_SBP)
+tiva_class <- emr_tiva %>% select(Case_ID, class)
+
+cnn_tiva_result2 <- list()
+num <- 1
+for(list in cnn_tiva_result){
+  temp <- subset(tiva_class, tiva_class$Case_ID == list$Case_ID[1])
+  
+  temp2 <- list
+  temp2$class <- temp$class
+  
+  cnn_tiva_result2[[num]] <- temp2
+  num <- num + 1
+}
+
+for(list in cnn_tiva_result2){
+  temp <- list
+  temp2 <- list[,1:5]
+  write.csv(temp2, paste0("C://Users//MY//Desktop//research//MACE//cnn_data//", temp$Case_ID[1], ".csv"))
+  write.csv(temp$class[1], paste0("C://Users//MY//Desktop//research//MACE//cnn_label//", temp$Case_ID[1], "_label.csv"))
+}
