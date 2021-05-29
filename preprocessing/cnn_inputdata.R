@@ -128,3 +128,13 @@ for(list in cnn_tiva_result2){
   write.csv(temp2, paste0("C://Users//MY//Desktop//research//MACE//cnn_data//", temp$Case_ID[1], ".csv"))
   write.csv(temp$class[1], paste0("C://Users//MY//Desktop//research//MACE//cnn_label//", temp$Case_ID[1], "_label.csv"))
 }
+
+cnn_label <- data.frame()
+for(list in cnn_tiva_result2){
+  cnn_label <- rbind(cnn_label, list$class[1])
+}
+
+setwd("C://Users//MY//Downloads")
+tiva_cnn <- read.csv("TIVA_record_cnn.csv")
+
+tiva_cnn$class <- cnn_label
