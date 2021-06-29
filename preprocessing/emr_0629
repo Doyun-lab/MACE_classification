@@ -1,0 +1,43 @@
+library(tidyverse)
+
+setwd("C:/Users/MY/Desktop/research/MACE/data")
+
+emr_tiva = readRDS("emr_TIVA_0624.rds")
+emr_vol = readRDS("emr_volatile_0624.rds")
+
+emr_new = read.csv("emr_new.csv")
+
+# POD > 30 인 Case 확인
+emr_pod = subset(emr_new, emr_new$POD > 30)
+pod_case = emr_pod$Case.ID
+
+# 중복행 확인
+subset(table(emr_tiva$Case_ID), table(emr_tiva$Case_ID) > 1)
+subset(table(emr_vol$Case_ID), table(emr_vol$Case_ID) > 1)
+
+# TIVA 중복 행 제거
+subset(emr_tiva, emr_tiva$Case_ID == "06_190202_0830") # 481
+subset(emr_tiva, emr_tiva$Case_ID == "06_190202_1830") # 482
+
+# volatile 중복 행 제거
+subset(emr_vol, emr_vol$Case_ID == "08_190517_1135") # 1026
+subset(emr_vol, emr_vol$Case_ID == "08_190517_2325") # 1027
+
+emr_tiva = emr_tiva[-c(481, 482),]
+emr_vol = emr_vol[-c(1026, 1027),]
+
+# Case 수 확인
+length(unique(emr_tiva$Case_ID)) # 1710
+length(unique(emr_vol$Case_ID)) # 1512
+
+emr_tiva_pod = subset(emr_tiva, !(emr_tiva$Case_ID %in% pod_case))
+length(unique(emr_tiva_pod$Case_ID)) # 1701
+
+emr_vol_pod = subset(emr_vol, !(emr_vol$Case_ID %in% pod_case))
+length(unique(emr_vol_pod$Case_ID)) # 1508
+
+emr_tiva_end = emr_tiva_pod %>% select(-End.stage.renal.disease.ESRD.)
+emr_vol_end = emr_vol_pod %>% select(-End.stage.renal.disease.ESRD.)
+
+saveRDS(emr_tiva_end, "emr_TIVA_0629.rds")
+saveRDS(emr_vol_end, "emr_vol_0629.rds")
