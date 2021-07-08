@@ -1,3 +1,4 @@
+## Up-sampling 
 library(randomForest)
 library(xgboost)
 library(tidyverse)
@@ -142,7 +143,7 @@ dnn_fit_up = function(input_data){
     #val$Class <- as.factor(val$Class)
     test$Class <- as.factor(test$class)
     
-    train_y <- x$Class %>% as.numeric()-1
+    train_y <- up$Class %>% as.numeric()-1
     #val_y <- val$Class %>% as.numeric()-1
     test_y <- test$class %>% as.numeric()-1
     
