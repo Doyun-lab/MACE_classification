@@ -49,6 +49,8 @@
 - Random Forest
 - XGBoost **
 - DNN 
+- CNN + DNN
+- RNN + DNN
 
 ## Conclusion
 - XGBoost Up-sampling 했을 때 좋았음
