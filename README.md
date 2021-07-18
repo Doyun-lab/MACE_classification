@@ -49,7 +49,7 @@
 - Random Forest
 - XGBoost **
 - DNN 
-- CNN + DNN
+- 1D CNN + DNN
 - RNN + DNN
 
 ## Conclusion
