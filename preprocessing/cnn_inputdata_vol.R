@@ -134,6 +134,12 @@ for(list in cnn_vol_result2){
   write.csv(temp$class[1], paste0("C://Users//MY//Desktop//research//MACE//cnn_label_vol//", temp$Case_ID[1], "_label.csv"))
 }
 
+cnn_label <- data.frame()
+for(list in cnn_vol_result2){
+  cnn_label <- rbind(cnn_label, list$class[1])
+}
+
+
 
 
 
