@@ -37,6 +37,9 @@
     4. BIS, TV, RR의 이상치나 결측치를 마취기록지에서 대체
     5. HR 결측치 처리
 
+## Problem
+- Data imbalance -> 다양한 Sampling 기법과 Novelty detection으로 해결 중
+
 ## Feature Extraction
 - TIVA, volatile
     1. 통계 특징 추출
