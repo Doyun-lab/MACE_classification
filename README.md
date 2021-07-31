@@ -56,4 +56,4 @@
 - RNN + DNN
 
 ## Conclusion
-- XGBoost Up-sampling 했을 때 좋았음
+- Best : XGBoost Up-sampling
