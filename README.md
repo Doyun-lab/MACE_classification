@@ -50,10 +50,12 @@
 ## Modeling
 - One-class SVM
 - Random Forest
-- XGBoost **
-- DNN 
+- XGBoost *
+- DNN **
 - 1D CNN + DNN
+- 1D CNN & RNN + DNN
 - RNN + DNN
+- LSTM + DNN
 
 ## Conclusion
-- Best : XGBoost Up-sampling
+- Best : DNN Up-sampling
