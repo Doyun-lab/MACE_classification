@@ -47,3 +47,5 @@ concat_model.compile(loss='binary_crossentropy', optimizer=adam,
                           ,tf.keras.metrics.FalseNegatives(name='false_negatives')\
                           ,tf.keras.metrics.TruePositives(name='true_positives')\
                           ,tf.keras.metrics.TrueNegatives(name='true_negatives')])
+
+concat_model_history = concat_model.fit([x_train, x_train_emr_scale], y_train, epochs = 100, validation_split=0.2)
