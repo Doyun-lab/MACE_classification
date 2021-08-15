@@ -48,6 +48,9 @@
     4. 주파수 특징 추출
 
 ## Modeling
+
+평가 방법 : Precision, Recall, F1 score, auPRC
+
 - One-class SVM
 - Random Forest
 - XGBoost *
