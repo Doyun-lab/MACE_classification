@@ -53,7 +53,7 @@
 
 - One-class SVM
 - Random Forest
-- XGBoost *
+- XGBoost ***
 - DNN **
 - 1D CNN + DNN
 - 1D CNN & RNN + DNN
