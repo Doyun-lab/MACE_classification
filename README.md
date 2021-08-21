@@ -38,7 +38,13 @@
     5. HR 결측치 처리
 
 ## Problem
-- Data imbalance -> 다양한 Sampling 기법과 Novelty detection으로 해결 중
+- Data imbalance -> 다양한 Sampling 기법과 Novelty detection으로 해결 중  
+
+Sampling 기법
+- Random Under-sampling
+- Resampling
+- Random Under + Re - sampling
+
 
 ## Feature Extraction
 - TIVA, volatile
