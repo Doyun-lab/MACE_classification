@@ -57,6 +57,13 @@ Sampling 기법
 
 평가 방법 : Precision, Recall, F1 score, auPRC
 
+Combination 1 : 
+Combination 2 : 
+Combination 3 : 
+Combination 4 : 
+Combination 5 : 
+Combination 6 : 
+
 - One-class SVM
 - Random Forest
 - XGBoost ***
@@ -67,4 +74,4 @@ Sampling 기법
 - LSTM + DNN
 
 ## Conclusion
-- Best : DNN Up-sampling
+- Best : XGBoost (Resampling)
